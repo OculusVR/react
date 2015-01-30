@@ -114,10 +114,10 @@ function putListener(id, registrationName, listener, transaction) {
   );
 }
 
-// For HTML, certain tags should omit their close tag. We keep a whitelist for
-// those special cased tags.
+// For HTML, void elements never have content and thus must omit their close
+// tag. We keep a whitelist for these special cased tags.
 
-var omittedCloseTags = {
+var voidElements = {
   'area': true,
   'base': true,
   'br': true,
@@ -193,7 +193,7 @@ ReactDOMComponent.Mixin = {
   mountComponent: function(rootID, transaction, context) {
     this._rootNodeID = rootID;
     assertValidProps(this._currentElement.props);
-    var closeTag = omittedCloseTags[this._tag] ? '' : '</' + this._tag + '>';
+    var closeTag = voidElements[this._tag] ? '' : '</' + this._tag + '>';
     return (
       this._createOpenTagMarkupAndPutListeners(transaction) +
       this._createContentMarkup(transaction, context) +
