@@ -101,7 +101,7 @@ var DOMPropertyOperations = {
       var attributeName = DOMProperty.getAttributeName[name];
       if (DOMProperty.hasBooleanValue[name] ||
           (DOMProperty.hasOverloadedBooleanValue[name] && value === true)) {
-        return escapeTextForBrowser(attributeName);
+        return escapeTextForBrowser(attributeName) + '=""';
       }
       return processAttributeNameAndPrefix(attributeName) +
         escapeTextForBrowser(value) + '"';
