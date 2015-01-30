@@ -216,6 +216,7 @@ ReactDOMComponent.Mixin = {
   _createOpenTagMarkupAndPutListeners: function(transaction) {
     var props = this._currentElement.props;
     var ret = '<' + this._tag;
+    var selfClosingTag = voidElements[this._tag] ? ' /' : '';
 
     for (var propKey in props) {
       if (!props.hasOwnProperty(propKey)) {
@@ -245,11 +246,11 @@ ReactDOMComponent.Mixin = {
     // For static pages, no need to put React ID and checksum. Saves lots of
     // bytes.
     if (transaction.renderToStaticMarkup) {
-      return ret + '>';
+      return ret + selfClosingTag + '>';
     }
 
     var markupForID = DOMPropertyOperations.createMarkupForID(this._rootNodeID);
-    return ret + ' ' + markupForID + '>';
+    return ret + ' ' + markupForID + selfClosingTag + '>';
   },
 
   /**

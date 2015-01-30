@@ -265,6 +265,20 @@ describe('ReactServerRendering', function() {
       expect(response).toBe('<span><div>inner text</div></span>');
     });
 
+    it('should self-close void elements', function() {
+      var TestComponent = React.createClass({
+        render: function() {
+          return <hr />;
+        }
+      });
+
+      var response = ReactServerRendering.renderToStaticMarkup(
+        <TestComponent />
+      );
+
+      expect(response).toBe('<hr />');
+    });
+
     it('should not put checksum and React ID on text components', function() {
       var TestComponent = React.createClass({
         render: function() {
